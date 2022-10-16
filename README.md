@@ -1,2 +1,1 @@
-# pythonmaze
- 
+# Not Mafia
