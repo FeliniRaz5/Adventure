@@ -30,14 +30,14 @@ def logo():
     print('| $$ | $$ | $$|  $$$$$$$| $$      | $$|  $$$$$$$')
     time.sleep(0.5)
     print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.5')
-    print(attr('reset') + 'resize your window to be at least 82 characters width & 13 characters in height!')
+    print(attr('reset') + 'resize your window to be 13 characters heigh!')
     start()
 
 def start():
     startq = input('Do you want to start the game (y/n/info)? ')
     
     if startq == 'y':
-        print('loading area... this may take few seconds')
+        print('loading area... this may take a few seconds')
         level1()
     elif startq == 'n':
         quit()
@@ -491,7 +491,7 @@ def moving(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11):
         lr10_mod = ''
         lr2_mod1 = ''
         info = False
-    print('loading area... this may take few seconds')
+    print('loading area... this may take a few seconds')
     for i in range(13):
         print('')
     level1()
