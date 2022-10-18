@@ -253,7 +253,7 @@ def testlevel(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11):
     posx = 0
     complete = False
     
-    for t in range(1000):
+    for t in range(700):
         m = random.randrange(3)
         if m == 0:
             posy_undo = posy
