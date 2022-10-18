@@ -29,7 +29,7 @@ def logo():
     time.sleep(0.5)
     print('| $$ | $$ | $$|  $$$$$$$| $$      | $$|  $$$$$$$')
     time.sleep(0.5)
-    print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.5')
+    print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.6')
     print(attr('reset') + 'resize your window to be 13 characters heigh!')
     start()
 
