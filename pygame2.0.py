@@ -65,7 +65,7 @@ def level1():
     for i in range(9):
         if i == 0:
             for j in range(8):
-                x = random.randrange(3)
+                x = random.randrange(2)
                 if x == 1:
                     lr2 += '▓'
                 else:
@@ -83,7 +83,7 @@ def level1():
             
         elif i == 2:
             for j in range(9):
-                x = random.randrange(3)
+                x = random.randrange(2)
                 if x == 1:
                     lr4 += '▓'
                 else:
@@ -101,7 +101,7 @@ def level1():
 
         elif i == 4:
             for j in range(9):
-                x = random.randrange(3)
+                x = random.randrange(2)
                 if x == 1:
                     lr6 += '▓'
                 else:
@@ -119,7 +119,7 @@ def level1():
 
         elif i == 6:
             for j in range(9):
-                x = random.randrange(3)
+                x = random.randrange(2)
                 if x == 1:
                     lr8 += '▓'
                 else:
@@ -137,7 +137,7 @@ def level1():
 
         elif i == 8:
             for j in range(9):
-                x = random.randrange(3)
+                x = random.randrange(2)
                 if x == 1:
                     lr10 += '▓'
                 else:
@@ -253,7 +253,7 @@ def testlevel(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11):
     posx = 0
     complete = False
     
-    for t in range(500):
+    for t in range(1000):
         m = random.randrange(3)
         if m == 0:
             posy_undo = posy
