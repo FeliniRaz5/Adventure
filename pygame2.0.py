@@ -29,11 +29,11 @@ def logo():
     time.sleep(0.35)
     print('| $$ | $$ | $$|  $$$$$$$| $$      | $$|  $$$$$$$')
     time.sleep(0.35)
-    print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.6')
+    print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.7')
     start()
 
 def start():
-    startq = input('Do you want to start the game (y/n/info)? ')
+    startq = input(attr('reset') + 'Do you want to start the game (y/n/info)? ')
     
     if startq == 'y':
         wq = int(input('Level width: '))
@@ -186,6 +186,7 @@ def moving(ip, layers, wq, hq):
             print('')
 
         elif moveq == 'r':
+            current_lvl = 0
             logo()
 
         else:
