@@ -18,27 +18,28 @@ def show_world():
 def logo():
     print(mf_color + '                          /$$$$$$  /$$          ')
     print('                         /$$__  $$|__/          ')
-    time.sleep(0.5)
+    time.sleep(0.35)
     print(' /$$$$$$/$$$$   /$$$$$$ | $$  \__/ /$$  /$$$$$$ ')
-    time.sleep(0.5)
+    time.sleep(0.35)
     print('| $$_  $$_  $$ |____  $$| $$$$    | $$ |____  $$')
-    time.sleep(0.5)
+    time.sleep(0.35)
     print('| $$ \ $$ \ $$  /$$$$$$$| $$_/    | $$  /$$$$$$$')
-    time.sleep(0.5)
+    time.sleep(0.35)
     print('| $$ | $$ | $$ /$$__  $$| $$      | $$ /$$__  $$')
-    time.sleep(0.5)
+    time.sleep(0.35)
     print('| $$ | $$ | $$|  $$$$$$$| $$      | $$|  $$$$$$$')
-    time.sleep(0.5)
+    time.sleep(0.35)
     print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.6')
-    print(attr('reset') + 'resize your window to be 13 characters heigh!')
     start()
 
 def start():
     startq = input('Do you want to start the game (y/n/info)? ')
     
     if startq == 'y':
+        wq = int(input('Level width: '))
+        hq = int(input('Level height: '))
         print('loading area... this may take a few seconds')
-        level1()
+        level1(wq, hq)
     elif startq == 'n':
         quit()
     elif startq == 'info':
@@ -48,212 +49,69 @@ def start():
         print('Error: ' + startq + ' is not a valid answer')
         start()
 
-def level1():
-#          10123456789
-    lr1 = '▓▓▓▓▓▓▓▓▓▓▓'#1
-    lr2 = '▓▣'#         0
-    lr3 = '▓'#          1
-    lr4 = '▓'#          2
-    lr5 = '▓'#          3
-    lr6 = '▓'#          4
-    lr7 = '▓'#          5
-    lr8 = '▓'#          6
-    lr9 = '▓'#          7
-    lr10 ='▓'#          8
-    lr11 ='▓▓▓▓▓▓▓▓▓▓▓'#9
+def level1(wq, hq):
+    layers = []
     ip = []
-    for i in range(9):
-        if i == 0:
-            for j in range(8):
-                x = random.randrange(2)
-                if x == 1:
-                    lr2 += '▓'
-                else:
-                    lr2 += ' '
-            lr2 += '▓'
-            
+
+    for i in range(hq + 2):
+        if i == 0 or i == hq + 1:
+            lr = ''
+            for i in range(wq + 2):
+                lr += '▓'
+            layers.append(lr)
+
         elif i == 1:
-            for j in range(9):
+            lr = '▓▣'
+            for j in range(wq - 1):
                 x = random.randrange(2)
                 if x == 1:
-                    lr3 += '▓'
+                    lr += '▓'
                 else:
-                    lr3 += ' '
-            lr3 += '▓'
-            
-        elif i == 2:
-            for j in range(9):
-                x = random.randrange(2)
-                if x == 1:
-                    lr4 += '▓'
-                else:
-                    lr4 += ' '
-            lr4 += '▓'
+                    lr += ' '
+            lr += '▓'
+            layers.append(lr)
 
-        elif i == 3:
-            for j in range(9):
+        elif i > 1 and i < hq:
+            lr = '▓'
+            for j in range(wq):
                 x = random.randrange(2)
                 if x == 1:
-                    lr5 += '▓'
+                    lr += '▓'
                 else:
-                    lr5 += ' '
-            lr5 += '▓'
-
-        elif i == 4:
-            for j in range(9):
+                    lr += ' '
+            lr += '▓'
+            layers.append(lr)
+        elif i == hq:    
+            lr = '▓'
+            for j in range(wq):
                 x = random.randrange(2)
                 if x == 1:
-                    lr6 += '▓'
+                    lr += '▓'
                 else:
-                    lr6 += ' '
-            lr6 += '▓'
-
-        elif i == 5:
-            for j in range(9):
-                x = random.randrange(2)
-                if x == 1:
-                    lr7 += '▓'
-                else:
-                    lr7 += ' '
-            lr7 += '▓'
-
-        elif i == 6:
-            for j in range(9):
-                x = random.randrange(2)
-                if x == 1:
-                    lr8 += '▓'
-                else:
-                    lr8 += ' '
-            lr8 += '▓'
-
-        elif i == 7:
-            for j in range(9):
-                x = random.randrange(2)
-                if x == 1:
-                    lr9 += '▓'
-                else:
-                    lr9 += ' '
-            lr9 += '▓'
-
-        elif i == 8:
-            for j in range(9):
-                x = random.randrange(2)
-                if x == 1:
-                    lr10 += '▓'
-                else:
-                    lr10 += ' '
-            lr10 += '□'
+                    lr += ' '
+            lr += '□'
+            layers.append(lr)
         
-    for i in range(11):
-        if i == 0:
-            posy = -1
-            posx = -1
-            for j in lr1:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 1:
-            posy = 0
-            posx = -1
-            for j in lr2:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 2:
-            posy = 1
-            posx = -1
-            for j in lr3:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 3:
-            posy = 2
-            posx = -1
-            for j in lr4:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 4:
-            posy = 3
-            posx = -1
-            for j in lr5:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 5:
-            posy = 4
-            posx = -1
-            for j in lr6:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 6:
-            posy = 5
-            posx = -1
-            for j in lr7:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 7:
-            posy = 6
-            posx = -1
-            for j in lr8:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 8:
-            posy = 7
-            posx = -1
-            for j in lr9:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 9:
-            posy = 8
-            posx = -1
-            for j in lr10:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
-
-        if i == 10:
-            posy = 9
-            posx = -1
-            for j in lr11:
-                if j in '▓':
-                    ip += [posy]
-                    ip += [posx]
-                posx += 1
+    posy = -1
+    for i in range(hq + 2):
+        posx = -1
+        for j in layers[i]:
+            if j in '▓':
+                ip += [posy]
+                ip += [posx]
+            posx += 1
+        posy += 1
                 
-    testlevel(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11)
+    testlevel(ip, layers, wq, hq)
 
-def testlevel(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11):
+def testlevel(ip, layers, wq, hq):
     posy_undo = None
     posx_undo = None
     posy = 0
     posx = 0
     complete = False
     
-    for t in range(700):
+    for t in range(9 * hq * wq):
         m = random.randrange(3)
         if m == 0:
             posy_undo = posy
@@ -279,43 +137,25 @@ def testlevel(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11):
                     elif m == 2 or m == 3:
                         posx = posx_undo
 
-        if posy == 8 and posx == 9:
+        if posy == hq - 1 and posx == wq:
             complete = True
             break
             
     if complete == True:
-        moving(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11)
+        moving(ip, layers, wq, hq)
     else:
-        level1()
+        level1(wq, hq)
         
     
-def moving(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11):
+def moving(ip, layers, wq, hq):
     global current_lvl
     current_lvl += 1
     show_world()
     print('info:')
     print('')
-    print(lr1)
-    print(lr2)
-    print(lr3)
-    print(lr4)
-    print(lr5)
-    print(lr6)
-    print(lr7)
-    print(lr8)
-    print(lr9)
-    print(lr10)
-    print(lr11)
-    lr2_mod = ''
-    lr3_mod = ''
-    lr4_mod = ''
-    lr5_mod = ''
-    lr6_mod = ''
-    lr7_mod = ''
-    lr8_mod = ''
-    lr9_mod = ''
-    lr10_mod = ''
-    lr2_mod1 = ''
+    for i in range(len(layers)):
+        print(layers[i])
+    layers_mod = [''] * len(layers)
     posy_undo = None
     posx_undo = None
     posy = 0
@@ -362,138 +202,70 @@ def moving(ip, lr1, lr2, lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10, lr11):
                     info = True
 
         if posy != 0:
-            for i in lr2:
+            for i in layers[1]:
                 if i == '▣':
-                    lr2_mod1 += ' '
+                    layers_mod[0] += ' '
                 else:
-                    lr2_mod1 += i
-                                
+                    layers_mod[0] += i
+
         if posy == 0:
             counter = -1
-            for i in lr2:
+            for i in layers[posy + 1]:
                 if counter == posx:
-                    lr2_mod += '▣'
+                    layers_mod[posy + 1] += '▣'
                 else:
                     if i == '▣':
-                        lr2_mod += ' '
+                        layers_mod[posy + 1] += ' '
                     else:
-                        lr2_mod += i
+                        layers_mod[posy + 1] += i
                 counter += 1
-            lr3_mod, lr4_mod, lr5_mod, lr6_mod, lr7_mod, lr8_mod, lr9_mod, lr10_mod = lr3, lr4, lr5, lr6, lr7, lr8, lr9, lr10
-
-        elif posy == 1:
-            counter = -1
-            for i in lr3:
-                if counter == posx:
-                    lr3_mod += '▣'
+                
+            for i in range(hq):
+                if posy + 1 == i + 1:
+                    continue
                 else:
-                    lr3_mod += i
-                counter += 1
-            lr2_mod, lr4_mod, lr5_mod, lr6_mod, lr7_mod, lr8_mod, lr9_mod, lr10_mod = lr2_mod1, lr4, lr5, lr6, lr7, lr8, lr9, lr10
+                    if i + 1 == 1:
+                        layers_mod[i + 1] = layers_mod[0]
+                    else:
+                        layers_mod[i + 1] = layers[i + 1]
 
-        elif posy == 2:
+
+
+        else:
             counter = -1
-            for i in lr4:
+            for i in layers[posy + 1]:
                 if counter == posx:
-                    lr4_mod += '▣'
+                    layers_mod[posy + 1] += '▣'
                 else:
-                    lr4_mod += i
+                    layers_mod[posy + 1] += i
                 counter += 1
-            lr2_mod, lr3_mod, lr5_mod, lr6_mod, lr7_mod, lr8_mod, lr9_mod, lr10_mod = lr2_mod1, lr3, lr5, lr6, lr7, lr8, lr9, lr10
-
-        elif posy == 3:
-            counter = -1
-            for i in lr5:
-                if counter == posx:
-                    lr5_mod += '▣'
+            for i in range(hq):
+                if posy + 1 == i + 1:
+                    continue
                 else:
-                    lr5_mod += i
-                counter += 1
-            lr2_mod, lr3_mod, lr4_mod, lr6_mod, lr7_mod, lr8_mod, lr9_mod, lr10_mod = lr2_mod1, lr3, lr4, lr6, lr7, lr8, lr9, lr10
+                    if i + 1 == 1:
+                        layers_mod[i + 1] = layers_mod[0]
+                    else:
+                        layers_mod[i + 1] = layers[i + 1]
 
-        elif posy == 4:
-            counter = -1
-            for i in lr6:
-                if counter == posx:
-                    lr6_mod += '▣'
-                else:
-                    lr6_mod += i
-                counter += 1
-            lr2_mod, lr3_mod, lr4_mod, lr5_mod, lr7_mod, lr8_mod, lr9_mod, lr10_mod = lr2_mod1, lr3, lr4, lr5, lr7, lr8, lr9, lr10
-
-        elif posy == 5:
-            counter = -1
-            for i in lr7:
-                if counter == posx:
-                    lr7_mod += '▣'
-                else:
-                    lr7_mod += i
-                counter += 1
-            lr2_mod, lr3_mod, lr4_mod, lr5_mod, lr6_mod, lr8_mod, lr9_mod, lr10_mod = lr2_mod1, lr3, lr4, lr5, lr6, lr8, lr9, lr10
-
-        elif posy == 6:
-            counter = -1
-            for i in lr8:
-                if counter == posx:
-                    lr8_mod += '▣'
-                else:
-                    lr8_mod += i
-                counter += 1
-            lr2_mod, lr3_mod, lr4_mod, lr5_mod, lr6_mod, lr7_mod, lr9_mod, lr10_mod = lr2_mod1, lr3, lr4, lr5, lr6, lr7, lr9, lr10
-
-        elif posy == 7:
-            counter = -1
-            for i in lr9:
-                if counter == posx:
-                    lr9_mod += '▣'
-                else:
-                    lr9_mod += i
-                counter += 1
-            lr2_mod, lr3_mod, lr4_mod, lr5_mod, lr6_mod, lr7_mod, lr8_mod, lr10_mod = lr2_mod1, lr3, lr4, lr5, lr6, lr7, lr8, lr10
-
-        elif posy == 8:
-            counter = -1
-            for i in lr10:
-                if counter == posx:
-                    lr10_mod += '▣'
-                else:
-                    lr10_mod += i
-                counter += 1
-            lr2_mod, lr3_mod, lr4_mod, lr5_mod, lr6_mod, lr7_mod, lr8_mod, lr9_mod = lr2_mod1, lr3, lr4, lr5, lr6, lr7, lr8, lr9
-
+        
         if info == False:
             print('info:')
 
         print('')
 
-        if posy == 8 and posx == 9:
+        if posy == hq - 1 and posx == wq:
             complete = True
 
-        print(lr1)
-        print(lr2_mod)
-        print(lr3_mod)
-        print(lr4_mod)
-        print(lr5_mod)
-        print(lr6_mod)
-        print(lr7_mod)
-        print(lr8_mod)
-        print(lr9_mod)
-        print(lr10_mod)
-        print(lr11)
-        lr2_mod = ''
-        lr3_mod = ''
-        lr4_mod = ''
-        lr5_mod = ''
-        lr6_mod = ''
-        lr7_mod = ''
-        lr8_mod = ''
-        lr9_mod = ''
-        lr10_mod = ''
-        lr2_mod1 = ''
+        print(layers[0])
+        for i in range (1, hq + 1):
+            print(layers_mod[i])
+        print(layers[0])
+        layers_mod = [''] * len(layers)
         info = False
     print('loading area... this may take a few seconds')
     for i in range(13):
         print('')
-    level1()
+    level1(wq, hq)
                 
 logo()
