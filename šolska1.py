@@ -9,6 +9,7 @@ mf_color = fg('green')
 current_lvl = 0
 time1 = 0.0
 time_now = time.time()
+time.gmtime(0)
 
 def show_world():
     global current_lvl
@@ -156,7 +157,6 @@ def moving(ip, layers, wq, hq):
     current_lvl += 1
     show_world()
     print('info:')
-    time1 = time.time() - time_now
     print('Level: ' + str(current_lvl) + ', Time: ' + str(int(time1)))
     for i in range(len(layers)):
         print(layers[i])
