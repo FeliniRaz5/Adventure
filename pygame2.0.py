@@ -6,9 +6,12 @@ import sys
 sys.setrecursionlimit(10**6)
 
 mf_color = fg('green')
+mf_color2 = fg('yellow')
+mf_color3 = fg('chartreuse_2b')
 current_lvl = 0
 time1 = 0.0
 time_now = time.time()
+cash = 0
 
 def show_world():
     global current_lvl
@@ -16,6 +19,10 @@ def show_world():
         print("Area 1: " + mf_color + "Forest")
     elif current_lvl == 5:
         print(attr('reset') + "Area 2: City")
+    elif current_lvl == 15:
+        print("Area 3: " + mf_color2 + "Desert")
+    elif current_lvl == 34:
+        print(attr('reset') + "Area 4: " + mf_color3 + "Field")
 
 def logo():
     print(mf_color + '                          /$$$$$$  /$$          ')
@@ -31,7 +38,7 @@ def logo():
     time.sleep(0.35)
     print('| $$ | $$ | $$|  $$$$$$$| $$      | $$|  $$$$$$$')
     time.sleep(0.35)
-    print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.7')
+    print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.10')
     start()
 
 def start():
@@ -54,6 +61,7 @@ def start():
 def level1(wq, hq):
     layers = []
     ip = []
+    moneylist = []
 
     for i in range(hq + 2):
         if i == 0 or i == hq + 1:
@@ -69,7 +77,11 @@ def level1(wq, hq):
                 if x == 1:
                     lr += '▓'
                 else:
-                    lr += ' '
+                    x2 = random.randrange(7)
+                    if x2 == 6:
+                        lr += '$'
+                    else:
+                        lr += ' '
             lr += '▓'
             layers.append(lr)
 
@@ -80,7 +92,11 @@ def level1(wq, hq):
                 if x == 1:
                     lr += '▓'
                 else:
-                    lr += ' '
+                    x2 = random.randrange(7)
+                    if x2 == 6:
+                        lr += '$'
+                    else:
+                        lr += ' '
             lr += '▓'
             layers.append(lr)
         elif i == hq:    
@@ -90,7 +106,11 @@ def level1(wq, hq):
                 if x == 1:
                     lr += '▓'
                 else:
-                    lr += ' '
+                    x2 = random.randrange(7)
+                    if x2 == 6:
+                        lr += '$'
+                    else:
+                        lr += ' '
             lr += '□'
             layers.append(lr)
         
@@ -101,12 +121,15 @@ def level1(wq, hq):
             if j in '▓':
                 ip += [posy]
                 ip += [posx]
+            elif j in '$':
+                moneylist += [posy]
+                moneylist += [posx]
             posx += 1
         posy += 1
-                
-    testlevel(ip, layers, wq, hq)
+    
+    testlevel(ip, layers, wq, hq, moneylist)
 
-def testlevel(ip, layers, wq, hq):
+def testlevel(ip, layers, wq, hq, moneylist):
     posy_undo = None
     posx_undo = None
     posy = 0
@@ -144,20 +167,21 @@ def testlevel(ip, layers, wq, hq):
             break
             
     if complete == True:
-        moving(ip, layers, wq, hq)
+        moving(ip, layers, wq, hq, moneylist)
     else:
         level1(wq, hq)
         
     
-def moving(ip, layers, wq, hq):
+def moving(ip, layers, wq, hq, moneylist):
     global current_lvl
     global time1
     global time_now
+    global cash
     current_lvl += 1
     show_world()
     print('info:')
     time1 = time.time() - time_now
-    print('Level: ' + str(current_lvl) + ', Time: ' + str(int(time1)))
+    print('Level: ' + str(current_lvl) + ', Time: ' + str(int(time1)) + ', Cash: ' + str(float(cash)) + '$')
     for i in range(len(layers)):
         print(layers[i])
     layers_mod = [''] * len(layers)
@@ -207,12 +231,33 @@ def moving(ip, layers, wq, hq):
                     print('info: you can\'t move there!')
                     info = True
 
+        for i in range(len(moneylist)):
+            if moneylist[i] == posy and i % 2 == 0:
+                if moneylist[i + 1] == posx:
+                    cash += 1
+                    moneylist[i] = -2
+                    moneylist[i + 1] = -2
+            
+
         if posy != 0:
+            counter = -1
             for i in layers[1]:
                 if i == '▣':
                     layers_mod[0] += ' '
+                elif i == '$':
+                    posym = 0
+                    posxm = counter
+                    for j in range(len(moneylist)):
+                        if moneylist[j] == posym and j % 2 == 0:
+                            if moneylist[j + 1] == posxm:
+                                layers_mod[0] += i
+                                break
+                    else:
+                        layers_mod[0] += ' '
+                                                      
                 else:
                     layers_mod[0] += i
+                counter += 1
 
         if posy == 0:
             counter = -1
@@ -222,18 +267,45 @@ def moving(ip, layers, wq, hq):
                 else:
                     if i == '▣':
                         layers_mod[posy + 1] += ' '
+
+                    elif i == '$':
+                        posym = 0
+                        posxm = counter
+                        for j in range(len(moneylist)):
+                            if moneylist[j] == posym and j % 2 == 0:
+                                if moneylist[j + 1] == posxm:
+                                    layers_mod[posy + 1] += i
+                                    break
+                        else:
+                            layers_mod[posy + 1] += ' '
+                    
                     else:
                         layers_mod[posy + 1] += i
                 counter += 1
                 
             for i in range(hq):
-                if posy + 1 == i + 1:
+                if posy == i:
                     continue
                 else:
-                    if i + 1 == 1:
+                    if i == 0:
                         layers_mod[i + 1] = layers_mod[0]
                     else:
-                        layers_mod[i + 1] = layers[i + 1]
+                        counter = -1
+                        for k in layers[i + 1]:
+                            if k == '$':
+                                posym = i
+                                posxm = counter
+                                for j in range(len(moneylist)):
+                                    if moneylist[j] == posym and j % 2 == 0:
+                                        if moneylist[j + 1] == posxm:
+                                            layers_mod[i + 1] += k
+                                            break
+                                else:
+                                    layers_mod[i + 1] += ' '
+                    
+                            else:
+                                layers_mod[i + 1] += k
+                            counter += 1
 
 
 
@@ -243,23 +315,51 @@ def moving(ip, layers, wq, hq):
                 if counter == posx:
                     layers_mod[posy + 1] += '▣'
                 else:
-                    layers_mod[posy + 1] += i
+                    if i == '$':
+                        posym = posy
+                        posxm = counter
+                        for j in range(len(moneylist)):
+                            if moneylist[j] == posym and j % 2 == 0:
+                                if moneylist[j + 1] == posxm:
+                                    layers_mod[posy + 1] += i
+                                    break
+                        else:
+                            layers_mod[posy + 1] += ' '
+                    
+                    else:
+                        layers_mod[posy + 1] += i
                 counter += 1
+
             for i in range(hq):
-                if posy + 1 == i + 1:
+                if posy == i:
                     continue
                 else:
-                    if i + 1 == 1:
+                    if i == 0:
                         layers_mod[i + 1] = layers_mod[0]
                     else:
-                        layers_mod[i + 1] = layers[i + 1]
+                        counter = -1
+                        for k in layers[i + 1]:
+                            if k == '$':
+                                posym = i
+                                posxm = counter
+                                for j in range(len(moneylist)):
+                                    if moneylist[j] == posym and j % 2 == 0:
+                                        if moneylist[j + 1] == posxm:
+                                            layers_mod[i + 1] += k
+                                            break
+                                else:
+                                    layers_mod[i + 1] += ' '
+                    
+                            else:
+                                layers_mod[i + 1] += k
+                            counter += 1
 
         
         if info == False:
             print('info:')
             
         time1 = time.time() - time_now
-        print('Level: ' + str(current_lvl) + ', Time: ' + str(int(time1)))
+        print('Level: ' + str(current_lvl) + ', Time: ' + str(int(time1)) + ', Cash: ' + str(float(cash)) + '$')
 
         if posy == hq - 1 and posx == wq:
             complete = True
