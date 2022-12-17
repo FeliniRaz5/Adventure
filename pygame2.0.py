@@ -8,6 +8,14 @@ sys.setrecursionlimit(10**6)
 mf_color = fg('green')
 mf_color2 = fg('yellow')
 mf_color3 = fg('chartreuse_2b')
+logo_color1 = fg('light_goldenrod_1')
+logo_color2 = fg('yellow_1')
+logo_color3 = fg('gold_1')
+logo_color4 = fg('orange_1')
+logo_color5 = fg('dark_orange')
+logo_color6 = fg('orange_red_1')
+logo_color7 = fg('red_1')
+
 current_lvl = 0
 time1 = 0.0
 time_now = time.time()
@@ -25,20 +33,20 @@ def show_world():
         print(attr('reset') + "Area 4: " + mf_color3 + "Field")
 
 def logo():
-    print(mf_color + '                          /$$$$$$  /$$          ')
-    print('                         /$$__  $$|__/          ')
+    print(logo_color1 + '    :::     :::::::::  :::     ::: :::::::::: ::::    ::: ::::::::::: :::    ::: :::::::::  :::::::::: ')
     time.sleep(0.35)
-    print(' /$$$$$$/$$$$   /$$$$$$ | $$  \__/ /$$  /$$$$$$ ')
+    print(logo_color2 + '  :+: :+:   :+:    :+: :+:     :+: :+:        :+:+:   :+:     :+:     :+:    :+: :+:    :+: :+:        ')
     time.sleep(0.35)
-    print('| $$_  $$_  $$ |____  $$| $$$$    | $$ |____  $$')
+    print(logo_color3 + ' +:+   +:+  +:+    +:+ +:+     +:+ +:+        :+:+:+  +:+     +:+     +:+    +:+ +:+    +:+ +:+        ')
     time.sleep(0.35)
-    print('| $$ \ $$ \ $$  /$$$$$$$| $$_/    | $$  /$$$$$$$')
+    print(logo_color4 + '+#++:++#++: +#+    +:+ +#+     +:+ +#++:++#   +#+ +:+ +#+     +#+     +#+    +:+ +#++:++#:  +#++:++#   ')
     time.sleep(0.35)
-    print('| $$ | $$ | $$ /$$__  $$| $$      | $$ /$$__  $$')
+    print(logo_color5 + '+#+     +#+ +#+    +#+  +#+   +#+  +#+        +#+  +#+#+#     +#+     +#+    +#+ +#+    +#+ +#+        ')
     time.sleep(0.35)
-    print('| $$ | $$ | $$|  $$$$$$$| $$      | $$|  $$$$$$$')
+    print(logo_color6 + '#+#     #+# #+#    #+#   #+#+#+#   #+#        #+#   #+#+#     #+#     #+#    #+# #+#    #+# #+#        ')
     time.sleep(0.35)
-    print('|__/ |__/ |__/ \_______/|__/      |__/ \_______/1.0.10')
+    print(logo_color7 + '###     ### #########      ###     ########## ###    ####     ###      ########  ###    ### ########## 1.0.10')
+    time.sleep(0.35)
     start()
 
 def start():
@@ -52,7 +60,7 @@ def start():
     elif startq == 'n':
         quit()
     elif startq == 'info':
-        print('▓ = wall; ▣ = you, the player; □ = door')
+        print('▓ = wall; ▣ = you, the player; □ = door; $ = money (you can collect it)')
         start()
     else:
         print('Error: ' + startq + ' is not a valid answer')
